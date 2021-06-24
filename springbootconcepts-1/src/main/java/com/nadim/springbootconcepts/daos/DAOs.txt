@@ -1,0 +1,5 @@
+
+DAO => Data Access Object (MODELS IN DATABASES)
+
+In DAO package we specify Objects/Models/Entities that we need for the project.
+And object will be mapped to a table in the Database.

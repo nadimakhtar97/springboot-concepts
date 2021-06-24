@@ -1,0 +1,5 @@
+controller folder contains all the apis
+
+It is a best practice to not write business-logic in controllers.
+Controllers should only contain API defination all the business logic
+should be written in Service Package.

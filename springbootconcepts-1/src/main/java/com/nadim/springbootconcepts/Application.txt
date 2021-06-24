@@ -1,0 +1,13 @@
+spring boot follows MVC architecture (MODEL,VIEW,CONTROLLER)
+
+FLOW OF THE APPLICATION
+
+CLIENT/REQUEST ---> CONTROLLER ---> SERVICE ---> DAO
+CLIENT/RESPONSE <--- CONTROLLER <--- SERVICE <--- DAO
+
+
+
+JDBC (JAVA DATABASE CONNECTIVITY) is a protocol like http,https,ftp
+
+uri = protocol://db-server
+e.g jdbc://localhost
