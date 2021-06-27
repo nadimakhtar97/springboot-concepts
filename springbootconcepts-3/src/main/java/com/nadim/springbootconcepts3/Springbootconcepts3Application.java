@@ -1,13 +1,17 @@
 package com.nadim.springbootconcepts3;
 
 import com.nadim.springbootconcepts3.model.Book;
+import com.nadim.springbootconcepts3.model.BookCategory;
+import com.nadim.springbootconcepts3.repository.BookCategoryRepository;
 import com.nadim.springbootconcepts3.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 // We are using CommandLineRunner interface so as to ease our development process
@@ -28,22 +32,38 @@ public class Springbootconcepts3Application implements CommandLineRunner {
 	@Autowired
 	BookRepository bookRepository;
 
+	@Autowired
+	BookCategoryRepository bookCategoryRepository;
+
+
 	@Override
 	public void run(String... args) throws Exception {
 
+		Set<Book> books = new HashSet<>();
+
 		// inserting books in database
-//		Book book1 = new Book(1,"springboot","nadim",1000);
-//		Book book2 = new Book(2,"springboot","akhtar",1000);
+		Book book1 = new Book("springboot","nadim",1000);
+		Book book2 = new Book("css","lee",1200);
 //		bookRepository.save(book1);
 //		bookRepository.save(book2);
 
+		books.add(book1);
+		books.add(book2);
+
+
+		// creating new  bookCategory
+		bookCategoryRepository.save(new BookCategory("non programming"));
+		// creating new bookCategory along with books that belong to the category
+		bookCategoryRepository.save(new BookCategory("programming",books));
+
+
 		// printing all books in database
-		System.out.println(bookRepository.findAll());
-		System.out.println(bookRepository.findByAuthorName("nadim"));
+//		System.out.println(bookRepository.findAll());
+//		System.out.println(bookRepository.findByAuthorName("nadim"));
 //		System.out.println(bookRepository.findByAuthor("akhtar")); // This will give error if no implementation.
-		System.out.println(bookRepository.findByAuthor("akhtar"));
+//		System.out.println(bookRepository.findByAuthor("akhtar"));
 //		System.out.println(bookRepository.findByAuthors("nadim")); // giving error due to some syntax error
-		System.out.println(bookRepository.findByCost(1000));
-		System.out.println(bookRepository.findById(2));
+//		System.out.println(bookRepository.findByCost(1000));
+//		System.out.println(bookRepository.findById(2));
 	}
 }

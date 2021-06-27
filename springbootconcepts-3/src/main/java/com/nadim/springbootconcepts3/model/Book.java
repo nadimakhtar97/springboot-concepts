@@ -11,7 +11,7 @@ contain @Component annotation. But it is picked up by Hibernate
 @Entity
 /*
 This annotation is used to change/give custom name to table in database.
-But it is not recommended to change table/coulmn name in between.
+But it is not recommended to change table/column name in between.
  */
 @Table(name = "my_book")
 
@@ -27,6 +27,29 @@ public class Book {
     @Column(name = "price")  // This annotation is used to change/give custom name to column name in table
     private Integer cost;
 
+
+    /*
+        @ManyToOne has two component
+        Many - represents the current class
+        One - represents the class which it is related to ( here BookCategory)
+     */
+
+    @ManyToOne
+    /*
+    @JoinColumn will join the (primary key) of related table ( here BookCategory)
+    to current table as a foreign key.
+
+    | id(pk)  | name  | author_name  | cost  | book_category_id(fk) |
+     */
+    @JoinColumn // It similar to getting a foreign key
+    private BookCategory bookCategory;
+
+
+    /*
+   we create default constructor because springboot or hibernate uses default constructor to
+   create bean or objects
+   */
+
     public Book() {
     }
 
@@ -34,6 +57,18 @@ public class Book {
         this.name = name;
         this.authorName = authorName;
         this.cost = cost;
+    }
+
+
+    /*
+        This is the new constructor required after ManyToOne relation
+         */
+    public Book(String name, String authorName, Integer cost, Integer bookCategory) {
+        this.name = name;
+        this.authorName = authorName;
+        this.cost = cost;
+        this.bookCategory = new BookCategory();
+        this.bookCategory.setId(bookCategory);
     }
 
     public Book(Integer id, String name, String authorName, Integer cost) {
@@ -73,6 +108,14 @@ public class Book {
 
     public void setCost(Integer cost) {
         this.cost = cost;
+    }
+
+    public BookCategory getBookCategory() {
+        return bookCategory;
+    }
+
+    public void setBookCategory(BookCategory bookCategory) {
+        this.bookCategory = bookCategory;
     }
 
     @Override
