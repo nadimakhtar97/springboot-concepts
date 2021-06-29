@@ -39,23 +39,39 @@ public class Springbootconcepts3Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		Set<Book> books = new HashSet<>();
+//		Set<Book> books = new HashSet<>();
 
 		// inserting books in database
-		Book book1 = new Book("springboot","nadim",1000);
-		Book book2 = new Book("css","lee",1200);
+//		Book book1 = new Book("springboot","nadim",1000);
+//		Book book2 = new Book("css","lee",1200);
 //		bookRepository.save(book1);
 //		bookRepository.save(book2);
 
-		books.add(book1);
-		books.add(book2);
+//		books.add(book1);
+//		books.add(book2);
 
 
 		// creating new  bookCategory
-		bookCategoryRepository.save(new BookCategory("non programming"));
-		// creating new bookCategory along with books that belong to the category
-		bookCategoryRepository.save(new BookCategory("programming",books));
+//		bookCategoryRepository.save(new BookCategory("non programming"));
 
+		// creating new bookCategory along with books that belong to the category
+//		bookCategoryRepository.save(new BookCategory("programming",books));
+
+
+		/*
+		When we call this without assigning FetchType we get error:
+		failed to lazily initialize a collection of role.
+
+		We should not get all books in a bookCategory this way.
+		 */
+//		System.out.println(bookCategoryRepository.findById(2));
+
+
+		/*
+		Follow this to avoid Lazy Loading error without enabling Eager Loading
+		 */
+		BookCategory bc = (BookCategory) bookCategoryRepository.findById(2).get();
+		System.out.println(bookRepository.findByBookCategory(bc));
 
 		// printing all books in database
 //		System.out.println(bookRepository.findAll());

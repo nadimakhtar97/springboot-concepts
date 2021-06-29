@@ -11,9 +11,19 @@ public class BookCategory {
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "bookCategory" , cascade = CascadeType.ALL)
-    private Set<Book> books;
+    /*
+    FetchType.EAGER loads all the object in memory before hand.
+    FetchType.Lazy loads the object when required.
+    It is not recommended to use FetchType.EAGER because it increases memory uses.
+    Instead there is alternative solution to this.
+     */
 
+//    @OneToMany(mappedBy = "bookCategory" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+//    private Set<Book> books;
+
+
+    @OneToMany(mappedBy = "bookCategory" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private Set<Book> books;
 
     // In case of GenerationType.AUTO Hibernate will take care of assigning id
     // insert the first entry in table 1 --> 1
@@ -67,5 +77,14 @@ public class BookCategory {
         this.name = name;
         this.books = books;
         this.books.forEach(x->x.setBookCategory(this));
+    }
+
+    @Override
+    public String toString() {
+        return "BookCategory{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", books=" + books +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package com.nadim.springbootconcepts3.repository;
 
 import com.nadim.springbootconcepts3.model.Book;
+import com.nadim.springbootconcepts3.model.BookCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -54,9 +55,12 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 //    @Query(value = "select b from Book b where b.authorName=:authors_name")
 //    public List<Book> findByAuthors(String author_name); // some syntax error so giving error
 
-    public List<Book> findByName(String name); // no error
+    List<Book> findByName(String name); // no error
 
-    public List<Book> findByCost(Integer cost); // no error
+    List<Book> findByCost(Integer cost); // no error
 
-
+    /*
+    This function is defined to avoid lazy loading error when we want to list all books in a bookCategory.
+     */
+    List<Book> findByBookCategory(BookCategory bookCategory);
 }
